@@ -19,12 +19,10 @@
         "url": "https://github.com/jdavis/grunt-cafe-mocha/issues"
     },
 
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/jdavis/grunt-cafe-mocha/blob/master/LICENSE-MIT"
-        }
-    ],
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/jdavis/grunt-cafe-mocha/blob/master/LICENSE-MIT"
+    }],
 
     "main": "Gruntfile.js",
 
@@ -57,6 +55,6 @@
         "server",
         "bdd",
         "tdd",
-        "tests",
+        "tests"
     ]
 }
