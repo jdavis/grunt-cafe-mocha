@@ -1,6 +1,6 @@
 {
     "name": "grunt-cafe-mocha",
-    "description": "A Mocha server-side test Grunt plugin that actually works.",
+    "description": "A Mocha server-side Grunt plugin for testing that actually works.",
     "version": "0.1.0",
     "homepage": "https://github.com/jdavis/grunt-cafe-mocha",
 
