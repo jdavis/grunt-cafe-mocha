@@ -36,6 +36,10 @@
         "test": "grunt test"
     },
 
+    "dependencies": {
+        "mocha": "1.8"
+    },
+
     "devDependencies": {
         "grunt-contrib-jshint": "~0.1.1",
         "grunt-contrib-clean": "~0.4.0",
