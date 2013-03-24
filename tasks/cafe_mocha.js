@@ -12,12 +12,13 @@ var Mocha = require('Mocha'),
     path = require('path'),
     fs = require('fs'),
 
+    cwd = process.cwd(),
     resolve = path.resolve,
     exists = fs.existsSync || path.existsSync,
     utils = Mocha.utils,
     reporters = Mocha.reporters,
     interfaces = Mocha.interfaces,
-    mocha = new Mocha,
+    mocha = new Mocha(),
     handler = {};
 
 module.exports = function(grunt) {
@@ -25,6 +26,7 @@ module.exports = function(grunt) {
     grunt.registerMultiTask('cafemocha', 'Run server-side Mocha tests', function() {
         var options = this.options({
             require: [],
+            output: '',
             reporter: [],
             grep: '',
             invert: '',
@@ -42,8 +44,6 @@ module.exports = function(grunt) {
             reporters: [],
         });
 
-        this.files.forEach(function(f) {});
-
         for(var option in options) {
             if (options.hasOwnProperty(option)) {
                 if (option in handler) {
@@ -51,21 +51,28 @@ module.exports = function(grunt) {
                 }
             }
         }
+
+        this.files.forEach(function (f) {
+            f.src.filter(function (file) {
+                mocha.files.push(file);
+            })
+        });
+
+        console.log('Launching Mocha');
+        mocha.run(process.exit);
     });
 };
 
 handler.require = function (f) {
-    console.log('Requiring!');
     // Add local node_modules to path
-    module.paths.push(process.cwd, path.join(process.cwd, 'node_modules'));
+    module.paths.push(cwd, path.join(cwd, 'node_modules'));
 
     var files = [].concat(f);
     files.forEach(function (file) {
         // Check for relative/absolute path
-
         if (exists(file) || exists(file + '.js')) {
             // Append our cwd to it if it exists
-            require(path.join(process.cwd, file));
+            require(path.join(cwd, file));
         } else {
             // Might just be a node_module
             require(file);

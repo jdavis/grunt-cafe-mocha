@@ -30,7 +30,12 @@ module.exports = function(grunt) {
 
         // Configuration to be run (and then tested).
         cafemocha: {
-
+            one: {
+                src: 'mocha/one.js',
+                options: {
+                    require: ['test/require/signature'],
+                },
+            },
         },
 
         // Unit tests.
