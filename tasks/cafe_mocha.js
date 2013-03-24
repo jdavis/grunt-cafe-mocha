@@ -8,43 +8,67 @@
 
 'use strict';
 
+var Mocha = require('Mocha'),
+    path = require('path'),
+    fs = require('fs'),
+
+    resolve = path.resolve,
+    exists = fs.existsSync || path.existsSync,
+    utils = Mocha.utils,
+    reporters = Mocha.reporters,
+    interfaces = Mocha.interfaces,
+    mocha = new Mocha,
+    handler = {};
+
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+    grunt.registerMultiTask('cafemocha', 'Run server-side Mocha tests', function() {
+        var options = this.options({
+            require: [],
+            reporter: [],
+            grep: '',
+            invert: '',
+            timeout: 2000,
+            slow: 75,
+            colors: false,
+            growl: false,
+            debug: false,
+            bail: false,
+            asyncOnly: false,
+            recursive: false,
+            global: [],
+            ignoreLeaks: false,
+            interfaces: 'tdd',
+            reporters: [],
+        });
 
-  grunt.registerMultiTask('cafe_mocha', 'Your task description goes here.', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+        this.files.forEach(function(f) {});
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
+        for(var option in options) {
+            if (options.hasOwnProperty(option)) {
+                if (option in handler) {
+                    handler[option].call(this, options[option]);
+                }
+            }
         }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
-
-      // Handle options.
-      src += options.punctuation;
-
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
-
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
     });
-  });
+};
 
+handler.require = function (f) {
+    console.log('Requiring!');
+    // Add local node_modules to path
+    module.paths.push(process.cwd, path.join(process.cwd, 'node_modules'));
+
+    var files = [].concat(f);
+    files.forEach(function (file) {
+        // Check for relative/absolute path
+
+        if (exists(file) || exists(file + '.js')) {
+            // Append our cwd to it if it exists
+            require(path.join(process.cwd, file));
+        } else {
+            // Might just be a node_module
+            require(file);
+        }
+    });
 };
