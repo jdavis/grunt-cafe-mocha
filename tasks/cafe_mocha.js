@@ -11,6 +11,7 @@
 var Mocha = require('mocha'),
     path = require('path'),
     fs = require('fs'),
+    Base = Mocha.reporters.base,
 
     cwd = process.cwd(),
     exists = fs.existsSync || path.existsSync,
@@ -24,19 +25,16 @@ module.exports = function(grunt) {
         var options = this.options({
             asyncOnly: false,
             bail: false,
-            colors: false,
-            debug: false,
+            colors: undefined,
             globals: [],
             grep: false,
             growl: false,
             ignoreLeaks: false,
             invert: false,
-            output: '',
-            recursive: false,
             require: [],
             ui: 'bdd',
             slow: 75,
-            reporter: 'dot',
+            reporter: 'list',
             timeout: 2000,
         });
 
@@ -45,6 +43,7 @@ module.exports = function(grunt) {
         // Setup some settings
         mocha.ui(options.ui);
         mocha.reporter(options.reporter);
+        mocha.suite.bail(options.bail);
 
         // Optional settings
         if (options.timeout) mocha.suite.timeout(options.timeout);
@@ -53,6 +52,9 @@ module.exports = function(grunt) {
         if (options.invert) mocha.invert();
         if (options.ignoreLeaks) mocha.ignoreLeaks();
         if (options.asyncOnly) mocha.asyncOnly();
+
+        if (options.colors === true) Base.useColors = true;
+        else Base.useColors = false;
 
         mocha.globals(options.globals);
 
@@ -70,10 +72,7 @@ module.exports = function(grunt) {
             });
         });
 
-        mocha.run(function (failures) {
-            grunt.log.writeln('Finished running Mocha.');
-            process.exit(failures);
-        });
+        mocha.run(this.async());
     });
 };
 
