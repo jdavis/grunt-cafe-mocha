@@ -26,7 +26,7 @@ In your project's Gruntfile, add a section named `cafemocha` to the data object 
 grunt.initConfig({
   cafemocha: {
     testThis: {
-        files: 'test/this/**/*.js',
+        src: 'test/this/**/*.js',
         options: {
             ui: 'bdd',
             require: [
@@ -38,7 +38,7 @@ grunt.initConfig({
     /// Any number of tests here...
 
     testThat: {
-        files: 'test/that/*.js',
+        src: 'test/that/*.js',
         options: {
             ui: 'tdd',
             growl: true,

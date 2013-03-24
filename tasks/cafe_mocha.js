@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         var options = this.options({
             asyncOnly: false,
             bail: false,
-            colors: undefined,
+            /// colors: undefined, shouldn't be defined
             globals: [],
             grep: false,
             growl: false,
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         if (options.asyncOnly) mocha.asyncOnly();
 
         if (options.colors === true) Base.useColors = true;
-        else Base.useColors = false;
+        else if (options.colors === false) Base.useColors = false;
 
         mocha.globals(options.globals);
 
