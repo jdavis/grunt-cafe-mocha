@@ -28,9 +28,9 @@ module.exports = function(grunt) {
             one: {
                 src: 'test/*.js',
                 options: {
+                    ui: 'bdd',
                     require: [
                         'should',
-                        'test/require/signature'
                     ],
                 },
             },

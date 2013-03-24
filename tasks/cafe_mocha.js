@@ -8,41 +8,53 @@
 
 'use strict';
 
-var Mocha = require('Mocha'),
+var Mocha = require('mocha'),
     path = require('path'),
     fs = require('fs'),
 
     cwd = process.cwd(),
-    resolve = path.resolve,
     exists = fs.existsSync || path.existsSync,
-    utils = Mocha.utils,
-    reporters = Mocha.reporters,
-    interfaces = Mocha.interfaces,
-    mocha = new Mocha(),
     handler = {};
 
 module.exports = function(grunt) {
+    // Add local node_modules to path
+    module.paths.push(cwd, path.join(cwd, 'node_modules'));
 
     grunt.registerMultiTask('cafemocha', 'Run server-side Mocha tests', function() {
         var options = this.options({
-            require: [],
-            output: '',
-            reporter: [],
-            grep: '',
-            invert: '',
-            timeout: 2000,
-            slow: 75,
-            colors: false,
-            growl: false,
-            debug: false,
-            bail: false,
             asyncOnly: false,
-            recursive: false,
-            global: [],
+            bail: false,
+            colors: false,
+            debug: false,
+            globals: [],
+            grep: false,
+            growl: false,
             ignoreLeaks: false,
-            interfaces: 'tdd',
-            reporters: [],
+            invert: false,
+            output: '',
+            recursive: false,
+            require: [],
+            ui: 'bdd',
+            slow: 75,
+            reporter: 'dot',
+            timeout: 2000,
         });
+
+        var mocha = new Mocha;
+
+        // Setup some settings
+        mocha.ui(options.ui);
+        mocha.reporter(options.reporter);
+
+        // Optional settings
+        if (options.timeout) mocha.suite.timeout(options.timeout);
+        if (options.grep) mocha.grep(new RegExp(options.grep));
+        if (options.growl) mocha.growl();
+        if (options.invert) mocha.invert();
+        if (options.ignoreLeaks) mocha.ignoreLeaks();
+        if (options.asyncOnly) mocha.asyncOnly();
+
+        mocha.globals(options.globals);
 
         for(var option in options) {
             if (options.hasOwnProperty(option)) {
@@ -54,24 +66,23 @@ module.exports = function(grunt) {
 
         this.files.forEach(function (f) {
             f.src.filter(function (file) {
-                mocha.files.push(file);
-            })
+                mocha.addFile(file);
+            });
         });
 
-        console.log('Launching Mocha');
-        mocha.run(process.exit);
+        mocha.run(function (failures) {
+            grunt.log.writeln('Finished running Mocha.');
+            process.exit(failures);
+        });
     });
 };
 
 handler.require = function (f) {
-    // Add local node_modules to path
-    module.paths.push(cwd, path.join(cwd, 'node_modules'));
-
     var files = [].concat(f);
     files.forEach(function (file) {
         // Check for relative/absolute path
         if (exists(file) || exists(file + '.js')) {
-            // Append our cwd to it if it exists
+            // Append our cwd to import it
             require(path.join(cwd, file));
         } else {
             // Might just be a node_module

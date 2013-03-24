@@ -1,10 +1,13 @@
 var assert = require('assert');
 
-describe('Test Require Option', function () {
-    describe('.signature', function () {
-        it('on Object should equal "Cafe Mocha"', function () {
-            Object.signature.should.equal('Cafe Mocha');
-        });
-    });
-});
+describe('Array', function(){
+  before(function(){
+    // ...
+  });
 
+  describe('#indexOf()', function(){
+    it('should return -1 when not present', function(){
+      [1,2,3].indexOf(4).should.equal(-1);
+    });
+  });
+});
