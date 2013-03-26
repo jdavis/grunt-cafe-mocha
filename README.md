@@ -1,6 +1,6 @@
 # grunt-cafe-mocha
 
-> A Mocha server-side Grunt plugin for testing that actually works.
+> A Grunt plugin for running server-side Mocha tests that actually works.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
