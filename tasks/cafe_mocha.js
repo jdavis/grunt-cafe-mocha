@@ -39,6 +39,7 @@ module.exports = function(grunt) {
         });
 
         var mocha = new Mocha;
+        var async = this.async();
 
         // Setup some settings
         mocha.ui(options.ui);
@@ -72,7 +73,13 @@ module.exports = function(grunt) {
             });
         });
 
-        mocha.run(this.async());
+        mocha.run(function (failures) {
+            if (failures) {
+                grunt.fail.warn('Mocha tests failed.');
+            }
+
+            return async();
+        });
     });
 };
 
