@@ -11,6 +11,7 @@
 var Mocha = require('mocha'),
     path = require('path'),
     fs = require('fs'),
+    hook = require('loghooks-node'),
     Base = Mocha.reporters.base,
 
     cwd = process.cwd(),
@@ -73,7 +74,26 @@ module.exports = function(grunt) {
             });
         });
 
+        if (options.reporter === 'html-cov' || options.reporter === 'json-cov') {
+            hook.stdout(function (data) {
+                grunt.file.write(this.files[0].dest, data);
+            }.bind(this), false);
+        }
+
+        if (options.env) {
+            process.env[options.env] = 1;
+        }
+
         mocha.run(function (failures) {
+
+            if (options.reporter === 'html-cov' || options.reporter === 'json-cov') {
+                hook.unstdout();
+            }
+
+            if (options.env) {
+                delete process.env[options.env];
+            }
+
             if (failures) {
                 grunt.fail.warn('Mocha tests failed.');
             }
