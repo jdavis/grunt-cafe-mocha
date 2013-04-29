@@ -137,7 +137,7 @@ Default value: `[]`
 A list of globals names.
 
 #### options.ignoreLeaks
-Type: `List`
+Type: `Boolean`
 
 Default value: `false`
 
