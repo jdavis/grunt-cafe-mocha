@@ -1,5 +1,7 @@
 # grunt-cafe-mocha
 
+[![Build Status](https://travis-ci.org/jdavis/grunt-cafe-mocha.png)](https://travis-ci.org/jdavis/grunt-cafe-mocha)
+
 > A Grunt plugin for running server-side Mocha tests that actually works.
 
 ## Getting Started
