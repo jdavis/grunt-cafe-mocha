@@ -168,12 +168,9 @@ following defaults are used:
 To override the defaults, just pass in an object like so:
 
 ```js
-options: {
-    reporter: 'html-cov',
-    coverage: {
-        output: 'coverageTwo.html',
-        env: 'ENHANCED_COVERAGE',
-    }
+coverage: {
+    output: 'coverageTwo.html',
+    env: 'ENHANCED_COVERAGE',
 }
 ```
 
