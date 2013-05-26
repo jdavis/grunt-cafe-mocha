@@ -71,7 +71,7 @@ the reporters, check [here](http://visionmedia.github.com/mocha/#reporters).
 If using the reporter `html-cov` or `json-cov`, take a special look at the
 [coverage][coverage] option.
 
-coverage: https://github.com/jdavis/grunt-cafe-mocha#optionscoverage
+[coverage]: https://github.com/jdavis/grunt-cafe-mocha#optionscoverage
 
 #### options.ui
 Type: `String`
@@ -179,7 +179,7 @@ options: {
 
 Check out the [Coverage Example][example] for more details.
 
-example: https://github.com/jdavis/grunt-cafe-mocha#coverageexmaple
+[example]: https://github.com/jdavis/grunt-cafe-mocha#coverageexmaple
 
 ### Usage Examples
 
