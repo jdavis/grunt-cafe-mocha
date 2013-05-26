@@ -26,7 +26,6 @@
     "devDependencies": {
         "should": "*",
         "grunt": "~0.4.1",
-        "grunt-cafe-mocha": "~0.1.0",
         "grunt-contrib-clean": "~0.4.1"
     },
 
