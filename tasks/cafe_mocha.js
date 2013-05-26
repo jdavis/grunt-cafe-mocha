@@ -26,16 +26,17 @@ module.exports = function(grunt) {
             asyncOnly: false,
             bail: false,
             /// colors: undefined, shouldn't be defined
+            coverage: false,
             globals: [],
             grep: false,
             growl: false,
             ignoreLeaks: false,
             invert: false,
-            require: [],
-            ui: 'bdd',
-            slow: 75,
             reporter: 'list',
+            require: [],
+            slow: 75,
             timeout: 2000,
+            ui: 'bdd',
         });
 
         // Mocha runner
