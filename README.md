@@ -68,6 +68,11 @@ Default value: `'list'`
 A string value to pick which reporter to use when testing. To see a list of all
 the reporters, check [here](http://visionmedia.github.com/mocha/#reporters).
 
+If using the reporter `html-cov` or `json-cov`, take a special look at the
+[coverage][coverage] option.
+
+coverage: https://github.com/jdavis/grunt-cafe-mocha#optionscoverage
+
 #### options.ui
 Type: `String`
 
@@ -145,6 +150,37 @@ Default value: `false`
 
 Ignore global variable leaks
 
+#### options.coverage
+Type: `Boolean` | `Object`
+
+Default value: `false`
+
+Turns on the coverage feature. If `options.coverage` is set to `true`, the
+following defaults are used:
+
+```js
+{
+    output: 'coverage.html',
+    env: 1
+}
+```
+
+To override the defaults, just pass in an object like so:
+
+```js
+options: {
+    reporter: 'html-cov',
+    coverage: {
+        output: 'coverageTwo.html',
+        env: 'ENHANCED_COVERAGE',
+    }
+}
+```
+
+Check out the [Coverage Example][example] for more details.
+
+example: https://github.com/jdavis/grunt-cafe-mocha#coverageexmaple
+
 ### Usage Examples
 
 #### Basic Behavioral-driven Development
@@ -204,6 +240,45 @@ grunt.initConfig({
                 ui: 'bdd',
             },
         },
+    },
+});
+```
+
+#### Coverage Example
+
+The complete example of this is included in the [example/](example/) directory.
+
+```js
+grunt.initConfig({
+    cafemocha: {
+        // Setting 'coverage' option to true, using defaults
+        coverageOne: {
+            src: 'test/*.js',
+            options: {
+                ui: 'bdd',
+                reporter: 'html-cov',
+                coverage: true,
+                require: [
+                    'should',
+                ],
+            },
+        },
+
+        // Setting 'coverage' option to an object, overriding defaults
+        coverageTwo: {
+            src: 'test/*.js',
+            options: {
+                ui: 'bdd',
+                reporter: 'html-cov',
+                coverage: {
+                    output: 'coverageTwo.html',
+                    env: 'ENHANCED_COVERAGE',
+                },
+                require: [
+                    'should',
+                ],
+            },
+        }
     },
 });
 ```
