@@ -69,6 +69,8 @@ module.exports = function(grunt) {
     // By default, lint and run all tests.
     grunt.registerTask('default', ['clean', 'coverage', 'cafemocha']);
 
+    // Credit to @Couto
+    // Source: https://github.com/Couto/johnnie/blob/dev/Gruntfile.js#L100-L117
     grunt.registerMultiTask('coverage', 'Create code coverage', function () {
         var spawn = require('child_process').spawn,
             done = this.async(),
