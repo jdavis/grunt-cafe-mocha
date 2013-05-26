@@ -38,8 +38,17 @@ module.exports = function(grunt) {
             timeout: 2000,
         });
 
-        var mocha = new Mocha;
+        // Mocha runner
+        var mocha = new Mocha();
+
+        // Async function to ensure Grunt finishes
         var async = this.async();
+
+        // Original write function
+        var _stdout = process.stdout.write;
+
+        // Coverage output file
+        var output;
 
         // Setup some settings
         mocha.ui(options.ui);
@@ -73,7 +82,35 @@ module.exports = function(grunt) {
             });
         });
 
+        if (options.reporter === 'js-cov' || options.reporter === 'html-cov') {
+            if (!options.coverage) return grunt.fail.warn('Coverage option not set.');
+
+            // Check for coverage output file, else use default
+            if (options.coverage.output) {
+                output = fs.createWriteStream(options.coverage.output, {flags: 'w'});
+            } else {
+                output = fs.createWriteStream('coverage.html', {flags: 'w'});
+            }
+
+            // Check for coverage env option, else just set true
+            if (options.coverage.env) {
+                process.env['COV'] = options.coverage.env;
+            } else {
+                process.env['COV'] = 1;
+            }
+
+            process.stdout.write = function (chunk, encoding, cb) {
+                output.write(chunk, encoding, cb);
+            };
+        }
+
         mocha.run(function (failures) {
+            // Close output
+            if (output) output.end();
+
+            // Restore default process.stdout.write
+            process.stdout.write = _stdout;
+
             if (failures) {
                 grunt.fail.warn('Mocha tests failed.');
             }
