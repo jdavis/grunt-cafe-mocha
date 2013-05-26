@@ -176,7 +176,7 @@ coverage: {
 
 Check out the [Coverage Example][example] for more details.
 
-[example]: #coverageexmaple
+[example]: #coverage-exmaple
 
 ### Usage Examples
 
