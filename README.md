@@ -161,7 +161,7 @@ following defaults are used:
 ```js
 {
     output: 'coverage.html',
-    env: 1
+    env: 'COV'
 }
 ```
 
@@ -173,6 +173,12 @@ coverage: {
     env: 'ENHANCED_COVERAGE',
 }
 ```
+
+The `output` option is a path to where the coverage output will be saved to.
+
+The `env` option is the name of the `process.env` variable to set to a truthy
+value. For example, if `coverage.env = 'ENHANCED_COVERAGE'` then in your
+project, `process.env['ENHANCED_COVERAGE']` will be truthy.
 
 Check out the [Coverage Example][example] for more details.
 

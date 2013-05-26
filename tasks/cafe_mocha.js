@@ -95,7 +95,7 @@ module.exports = function(grunt) {
 
             // Check for coverage env option, else just set true
             if (options.coverage.env) {
-                process.env['COV'] = options.coverage.env;
+                process.env[options.coverage.env] = 1;
             } else {
                 process.env['COV'] = 1;
             }
