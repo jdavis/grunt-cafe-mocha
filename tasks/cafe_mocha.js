@@ -11,7 +11,7 @@
 var Mocha = require('mocha'),
     path = require('path'),
     fs = require('fs'),
-    Base = Mocha.reporters.base,
+    Base = Mocha.reporters.Base,
 
     cwd = process.cwd(),
     exists = fs.existsSync || path.existsSync,
