@@ -1,6 +1,6 @@
 # grunt-cafe-mocha
 
-[![Build Status](https://travis-ci.org/jdavis/grunt-cafe-mocha.png)](https://travis-ci.org/jdavis/grunt-cafe-mocha) [![Dependency Status](https://david-dm.org/jdavis/grunt-cafe-mocha.png)](https://david-dm.org/jdavis/grunt-cafe-mocha)
+[![Build Status](https://travis-ci.org/jdavis/grunt-cafe-mocha.png)](https://travis-ci.org/jdavis/grunt-cafe-mocha) [![NPM version](https://badge.fury.io/js/grunt-cafe-mocha.png)](http://badge.fury.io/js/grunt-cafe-mocha) [![Dependency Status](https://david-dm.org/jdavis/grunt-cafe-mocha.png)](https://david-dm.org/jdavis/grunt-cafe-mocha)
 
 > A Grunt plugin for running server-side Mocha tests that actually works.
 
