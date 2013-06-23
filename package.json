@@ -1,7 +1,7 @@
 {
     "name": "grunt-cafe-mocha",
     "description": "A Grunt plugin for running server-side Mocha tests that actually works.",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "homepage": "https://github.com/jdavis/grunt-cafe-mocha",
 
     "author": {
