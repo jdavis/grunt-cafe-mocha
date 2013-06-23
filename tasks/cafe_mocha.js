@@ -83,7 +83,7 @@ module.exports = function(grunt) {
             });
         });
 
-        if (options.reporter === 'js-cov' || options.reporter === 'html-cov') {
+        if (options.reporter === 'json-cov' || options.reporter === 'html-cov') {
             if (!options.coverage) return grunt.fail.warn('Coverage option not set.');
 
             // Check for coverage output file, else use default
