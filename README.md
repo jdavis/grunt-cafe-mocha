@@ -111,7 +111,7 @@ The tiemout time for a test-case in milliseconds.
 #### options.slow
 Type: `Integer`
 
-Default value: `2000`
+Default value: `75`
 
 Threshold for a "slow" test in milliseconds.
 
