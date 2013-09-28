@@ -63,6 +63,7 @@ module.exports = function(grunt) {
         if (options.invert) mocha.invert();
         if (options.ignoreLeaks) mocha.ignoreLeaks();
         if (options.asyncOnly) mocha.asyncOnly();
+        if (options.slow) mocha.slow();
 
         if (options.colors === true) Base.useColors = true;
         else if (options.colors === false) Base.useColors = false;
