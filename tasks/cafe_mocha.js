@@ -86,7 +86,9 @@ module.exports = function(grunt) {
 
         if (options.reporter === 'json-cov' || options.reporter === 'html-cov') {
             if (!options.coverage) return grunt.fail.warn('Coverage option not set.');
+        }
 
+        if (options.coverage) {
             // Check for coverage output file, else use default
             if (options.coverage.output) {
                 output = fs.createWriteStream(options.coverage.output, {flags: 'w'});
