@@ -70,6 +70,16 @@ module.exports = function(grunt) {
 
         mocha.globals(options.globals);
 
+        // Check for coverage env option, else just set true
+        // do this before any of the mocha requires
+        if (options.coverage) {
+            if (options.coverage.env) {
+                process.env[options.coverage.env] = 1;
+            } else {
+                process.env['COV'] = 1;
+            }
+        }
+
         for(var option in options) {
             if (options.hasOwnProperty(option)) {
                 if (option in handler) {
@@ -96,30 +106,29 @@ module.exports = function(grunt) {
                 output = fs.createWriteStream('coverage.html', {flags: 'w'});
             }
 
-            // Check for coverage env option, else just set true
-            if (options.coverage.env) {
-                process.env[options.coverage.env] = 1;
-            } else {
-                process.env['COV'] = 1;
-            }
-
             process.stdout.write = function (chunk, encoding, cb) {
                 output.write(chunk, encoding, cb);
             };
         }
 
         mocha.run(function (failures) {
-            // Close output
-            if (output) output.end();
+            var finish = function () {
+                // Restore default process.stdout.write
+                process.stdout.write = _stdout;
 
-            // Restore default process.stdout.write
-            process.stdout.write = _stdout;
+                if (failures) {
+                    grunt.fail.warn('Mocha tests failed.');
+                }
 
-            if (failures) {
-                grunt.fail.warn('Mocha tests failed.');
+                return async();
+            };
+
+            if (output) {
+                // Close output
+                output.end(finish);
+            } else {
+                finish()
             }
-
-            return async();
         });
     });
 };
