@@ -19,6 +19,13 @@ One the plugin has been installed, it may be enabled inside your Gruntfile with 
 grunt.loadNpmTasks('grunt-cafe-mocha');
 ```
 
+This plugin requires npm `~1.4.6`
+
+In practice, this should only be a problem if you are targeting Node 0.8.  In this case, you will need to upgrade npm manually using a command like this:
+```
+npm install -g npm@~1.4.6
+```
+
 ## The "cafemocha" task
 
 ### Overview
