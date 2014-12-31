@@ -1,4 +1,8 @@
-# grunt-cafe-mocha
+# Deprecated
+
+As of 2014, I am no longer maintaining this Grunt task. If you are looking for an alternative, look at [pghalliday/grunt-mocha-test](https://github.com/pghalliday/grunt-mocha-test).
+
+## grunt-cafe-mocha
 
 [![Build Status](https://travis-ci.org/jdavis/grunt-cafe-mocha.png)](https://travis-ci.org/jdavis/grunt-cafe-mocha) [![NPM version](https://badge.fury.io/js/grunt-cafe-mocha.png)](http://badge.fury.io/js/grunt-cafe-mocha) [![Dependency Status](https://david-dm.org/jdavis/grunt-cafe-mocha.png)](https://david-dm.org/jdavis/grunt-cafe-mocha)
 
